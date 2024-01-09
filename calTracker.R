@@ -1,18 +1,18 @@
-
 #Handle input type next
 {
-    name <- readline(prompt="What is your name? (SKIP to skip) ")
+    name <- readline(prompt="What is your name? ")
 
     if(name == 'SKIP'){
         age = 20
-        inputHeight = 73
+        inputHeight = 70
         inputWeight = 185
         metric <- FALSE
+
     }
     else{
         age <- as.numeric(readline(prompt="What is your age? "))
 
-        measure <- readline(prompt="Imperial (I) or Metric (M)? ")
+        measure <- readline(prompt="Imperial (I) or Metric (M)")
 
         metric <- FALSE
         
@@ -28,12 +28,10 @@
             inputWeight <- as.numeric(readline(prompt="What is your weight? (In Pounds) "))
         }
     }
-
     lbs = inputWeight
     inches = inputHeight
-
+    
 }
-
 
 if(metric) {
     lbs = inputWeight*2.205

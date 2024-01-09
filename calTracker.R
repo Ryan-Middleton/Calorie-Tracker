@@ -1,30 +1,59 @@
 #Handle input type next
 {
-    name <- readline(prompt="What is your name?")
+    name <- readline(prompt="What is your name? ")
 
-    age <- as.numeric(readline(prompt="What is your age?"))
+    if(name == 'SKIP'){
+        age = 20
+        inputHeight = 70
+        inputWeigh = 185
+        break
+    }
+    age <- as.numeric(readline(prompt="What is your age? "))
 
-    height <- as.numeric(readline(prompt="What is your height? (In Inches)"))
+    measure <- readline(prompt="Imperial (I) or Metric (M)")
 
-    lbs <- as.numeric(readline(prompt="What is your weight? (In Pounds)"))
+    metric <- FALSE
+    
+    if(measure == 'M'){
+        metric <- TRUE
+        inputHeight <- as.numeric(readline(prompt="What is your height? (In CM) "))
+
+        inputWeight <- as.numeric(readline(prompt="What is your weight? (In Kilograms) "))
+    }
+    else{
+        inputHeight <- as.numeric(readline(prompt="What is your height? (In Inches) "))
+
+        inputWeight <- as.numeric(readline(prompt="What is your weight? (In Pounds) "))
+    }
+
+    lbs = inputWeight
+    inches = inputHeight
+
+    
 }
 
-BMI <- function(lbs, height){
-    return (703 * (lbs/(height^2)))
+
+if(metric) {
+    lbs = inputWeight*2.205
+    inches = inputHeight/2.54
+}
+
+BMI <- function(lbs, inches){
+    return (703 * (lbs/(inches^2)))
 }
 
 #Basal metabolic rate
 #Mifflin-St Jeor Equation: for men
 #check**
-BMR <- function(lbs, height, age){
-    return ((10 * lbs) + (6.25 * height) - (5 * age) + 5)
+BMR <- function(lbs, inches, age){
+    return ((10 * lbs) + (6.25 * inches) - (5 * age) + 5)
 }
 
 print(paste("Hello", name))
 
-print(paste("Your BMI is", BMI(lbs, height)))
+print(paste("Your BMI is", BMI(lbs, inches)))
 
-print(paste("Your basal metabolic rate is", BMR(lbs, height, age)))
+print(paste("Your basal metabolic rate is", BMR(lbs, inches, age)))
 
 weeks <- c(1:21)
 
@@ -35,8 +64,8 @@ BodyMassIndex = c()
 # Weight loss 0.25 pounds per week
 for (i in weeks){
     Weight[i] <- lbs-(0.25*i)
-    Calories[i] <- BMR(lbs-(0.25*i), height, age+(0.02*i))
-    BodyMassIndex[i] <- BMI(lbs-(0.25*i), height)
+    Calories[i] <- BMR(lbs-(0.25*i), inches, age+(0.02*i))
+    BodyMassIndex[i] <- BMI(lbs-(0.25*i), inches)
 }
 
 
